@@ -2,7 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/yourusername/birthday-service/service"
+	"github.com/kodsurfer/go-happy-birthday/internal/service"
+	"strconv"
 )
 
 // EmployeeAPI provides HTTP handlers for Employee operations.
@@ -34,10 +35,13 @@ func (api *EmployeeAPI) GetAllEmployees(c *gin.Context) {
 
 // GetEmployeeByID returns an employee by ID.
 func (api *EmployeeAPI) GetEmployeeByID(c *gin.Context) {
-	id := c.Param("id")
-	// Convert the id to an integer and handle any errors.
-	// ...
-	employee, err := api.service.GetEmployeeByID(intID)
+
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	employee, err := api.service.GetEmployeeByID(id)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
