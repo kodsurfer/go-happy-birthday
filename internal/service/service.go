@@ -1,6 +1,6 @@
 package service
 
-import "github.com/yourusername/birthday-service/domain"
+import "github.com/kodsurfer/go-happy-birthday/internal/domain"
 
 // EmployeeService provides operations on Employee.
 type EmployeeService struct {
